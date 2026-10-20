@@ -1,0 +1,59 @@
+Color-Lab 4.0 部署说明
+======================
+
+【4.0 主要变化】
+1. CUDA GPU 加速（可选）：色彩链改用 CuPy 写 CUDA 内核，预览与导出都可走 GPU。
+   - 后端自动选择：cupy → numba → numpy，缺一即静默降级，不影响使用
+   - GPU 内核用 NVRTC 现场编译，且缓存在项目内 .cupy_cache，不需要装 CUDA Toolkit
+   - 实测预览整帧约 37ms（CPU 回退路径约 130ms）
+2. 预览重做：源改为 float32 线性，与导出**逐位一致**
+3. 补上色彩管理：预览会把「目标色域」转到「显示器色域」再上屏
+   - 预览栏新增「色彩管理」勾选框（默认开）
+   - **关掉它 = 看未做色彩管理的软件会显示成什么样**，可用来对比
+4. 新增「色域警告」：把超出显示器色域、被裁掉的像素标成品红（默认关）
+5. 导出元数据修复：ICC 改为**按设计表现场生成**（v4 + chad + para 曲线），
+   EXIF 从 RAW 正确抽取并按 IFD 归位；HEIF 补上 ICC
+6. 波形示波器：RGB 改 **Parade**（三面板共用刻度），滚轮 / 拖右下角缩放，
+   性能提升百倍（900x470 从 24 秒降到 0.2 秒）
+
+【目标电脑需要】
+1. 安装 Python 3.13（必须 3.13，其他版本依赖装不上）
+   python.org → 安装时勾选 "Add Python to PATH"
+2. 双击 setup.bat 一键安装（5 步，含可选的 CuPy 安装）
+   - 首次约几分钟，下载约 200MB（装 CuPy 再 +90MB）
+   - 依赖装在项目内 .venv，不污染系统 Python
+   - CuPy 装不上不是错误，会自动用 CPU 后端
+3. 双击 color_tool.bat 启动
+
+【随附工具】
+- tools\check_icc.bat —— 把导出的图片**拖到它上面**，可查看这个文件里到底嵌了什么：
+  ICC 是否嵌入、体积、软件会显示的名字、标签清单、色料和、TRC 类型，
+  以及 **Windows 色彩引擎的判断**；还有 EXIF 的 IFD 归位情况。
+- 性能对比.bat —— 与 Color-Lab3.3 做 A/B 性能对比。
+
+【打包时注意】
+- 打包整个 Color-Lab4.0 文件夹
+- .venv 目录不需要打包（目标电脑用 setup.bat 重建）
+- .cupy_cache 可带可不带：带上首次启动快约 2 秒，不带会自动重建
+- output\ 里的导出文件可选择性带上
+- libheif-1.23.1 是 HEIF 相关源码参考，可留可删（实际 HEIF 编码用 pillow-heif 的 DLL）
+
+【依赖清单】
+必需：numpy, customtkinter, Pillow, tifffile, pillow-heif, rawpy, numba
+可选：cupy-cuda13x（+ cuda-toolkit[nvrtc,cudart]）—— 缺失则用 CPU 后端
+
+【常见问题】
+- "未找到 Python"：先装 Python 3.13 并勾选 Add to PATH
+- 版本不是 3.13：卸载重装 3.13
+- 依赖安装失败：检查网络后重跑 setup.bat
+- 预览卡顿：可用滚轮把示波器缩小，或双击它复位；示波器越大越慢
+- 导出与监看不一致：先确认看图软件**遵守嵌入的 ICC**，
+  可用 tools\check_icc.bat 查看档案信息；未做色彩管理的软件会偏淡
+
+【版本历史】
+- 3.0：色彩空间转换 + LUT + 基础调色
+- 3.1：基础功能完善
+- 3.2：顶部一级导出栏 + 单张导出 + 左栏紧凑化
+- 3.3：性能与稳定性改进
+- 4.0：CUDA GPU 加速 + 预览重做（线性域，与导出逐位一致）+ 色彩管理 +
+       色域警告 + ICC/EXIF 修复 + 示波器 Parade

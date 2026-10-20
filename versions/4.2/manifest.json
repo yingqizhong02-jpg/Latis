@@ -1,0 +1,12 @@
+{
+  "version": "4.2",
+  "date": "2026-10-20",
+  "note": "LUT 输出未声明→置空，实际按 Rec.709 解释",
+  "files": {
+    "colorlab.py": "172f2188ea46477b",
+    "colorlab_nb.py": "7dc2a6a3d01fafcc",
+    "colorlab_gpu.py": "2abf964d32020556",
+    "color_tool.bat": "3481df34602235da",
+    "setup.bat": "2aeb4941d5e6f414"
+  }
+}

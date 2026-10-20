@@ -1,0 +1,38 @@
+# 虚拟环境
+.venv/
+
+# 构建产物
+build/
+dist/
+*.spec
+
+# 运行时数据（用户自己的配置与输出）
+.colorlab_config
+output/
+*.log
+
+# 缓存
+__pycache__/
+*.pyc
+.cupy_cache/
+
+# 临时
+_tmp/
+_acl_fix/
+
+# 恢复备份 / 内部计划（不进公开仓库）
+*.bak*
+*.before_*
+*.brokenbak
+*.crashbak
+*.finalbak
+*.recoverbak
+*.before_latis
+*.before_packfix
+PLAN-*.md
+
+
+# 第三方二进制依赖（源码树不需要进仓库，构建用的 DLL 在发布包里）
+libheif-1.23.1/
+*.lnk
+

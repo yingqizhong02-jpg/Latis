@@ -1,0 +1,12 @@
+{
+  "version": "4.1",
+  "date": "2026-10-19",
+  "note": "管线收口 + 逐级指纹 + 目标编码/RGC 修复",
+  "files": {
+    "colorlab.py": "86cbd1349b506cf8",
+    "colorlab_nb.py": "7dc2a6a3d01fafcc",
+    "colorlab_gpu.py": "2abf964d32020556",
+    "color_tool.bat": "7c6f00ce707d4d57",
+    "setup.bat": "2aeb4941d5e6f414"
+  }
+}

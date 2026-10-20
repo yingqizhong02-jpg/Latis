@@ -1,0 +1,12 @@
+{
+  "version": "4.0",
+  "date": "2026-10-19",
+  "note": "会话改动之前的状态（原 4.0 末尾）",
+  "files": {
+    "colorlab.py": "b51f647d1a6f7413",
+    "colorlab_nb.py": "7dc2a6a3d01fafcc",
+    "colorlab_gpu.py": "2abf964d32020556",
+    "color_tool.bat": "7c6f00ce707d4d57",
+    "setup.bat": "2aeb4941d5e6f414"
+  }
+}
