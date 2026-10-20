@@ -1,6 +1,6 @@
 @echo off
 rem ============================================================
-rem  colorlab 4.0 一键安装（虚拟环境自包含版）
+rem  Latis 一键安装（虚拟环境自包含版）
 rem  目标电脑：先装 Python 3.13 (勾选 Add to PATH)，然后双击本脚本
 rem  效果：在项目内创建 .venv 虚拟环境并安装全部依赖，不污染系统
 rem
@@ -10,7 +10,7 @@ rem  可能吞掉换行把下一条命令并进来（踩过一次坑）。
 rem ============================================================
 chcp 65001 >nul 2>&1
 cd /d "%~dp0"
-title colorlab setup
+title Latis setup
 
 echo [1/5] 检查 Python...
 python --version >nul 2>&1
